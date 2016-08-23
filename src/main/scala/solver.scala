@@ -4,8 +4,8 @@
 object solver {
   def main(args: Array[String]): Unit = {
 
-    assert(testSolution(2, getResponse))    // test every permutation with N = 2
-    assert(testSolution(4, getResponse))    // test every permutation with N = 4
+    assert(testSolution(2, theSolution))    // test every permutation with N = 2
+    assert(testSolution(4, theSolution))    // test every permutation with N = 4
     print( "Passed all cases" )
   }
 
@@ -48,14 +48,17 @@ object solver {
   }
 
   /**
-    * Get the response a player should make given the info they know (i.e. THE SOLUTION TO THE RIDDLE)
+    * Get the CORRECT response a player should make given the info they know
     *  Funny how much simpler the solution is that the testing code...
     *
-    * @param playerNumber
+    *  returns the number the player guesses (0 through N-1) where (0 = clubs, 1=hearts, or however you code them)
+    *
+    * @param playerNumber  Which player is deciding (remember each player picks a different offset)
     * @param n             Number of players
-    * @param cardsVisible
+    * @param cardsVisible  The cards visible to this player (e.g. sees hearts, hearts, clubs)
     */
-  def getResponse(playerNumber: Int, n: Int, cardsVisible: IndexedSeq[Int]): Int = {
+  def theSolution(playerNumber: Int, n: Int, cardsVisible: IndexedSeq[Int]): Int = {
     (playerNumber - cardsVisible.reduce(_ + _) % n + n ) % n /* Pretty simple solution, except negative modulo is always weird... */
+    // if modulo worked with negatives we could simply write (playerNumber - cardsVisible.reduce(_+_)) % n
   }
 }
