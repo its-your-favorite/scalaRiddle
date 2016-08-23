@@ -10,7 +10,7 @@ English description of algorithm for two players:
 - Alice  Pick _opposite_ color that she sees on Bob's card
 - Bob    Pick _same_ color he sees on Alice's card
 
-The reason this works is because all possibilies can be divided into two subgroups: 
+The reason this works is because all possibilities can be divided into two subgroups:
 - Either Alice's card color = Bob's card color
 - Alice's card color != Bob's card color
 
@@ -23,7 +23,7 @@ It gets a little more complicated here, but nothing you can't handle.
 
 What we saw with two players is that we solved the problem by breaking the event space into N possible groups (N is the number of players) where each player accounted for 1 of these N possibilites with his/her guess.
 
-With N players we simply must find an expression that each player can *uniquely* cover 1/Nth of the possibilities. Uniqueness is essential, if two players would ever be simultoneously correct then the solution as a whole must be invalid.
+With N players we simply must find an expression that each player can *uniquely* cover 1/Nth of the possibilities. Uniqueness is essential, if two players would ever be simultaneously correct then the solution as a whole must be invalid.
 
 It turns out one easy expression is: (V0 + V1 + V2 ... V[N-1]) % N where V maps directly to a card value (e.g. black = 0, red = 1 or clubs = 0, hearts = 1, spades = 2 ...)
 
@@ -35,7 +35,8 @@ and so on, then we have achieved our goal, and we will be 100% sure that no matt
 
 A player decide what to guess by asking "What value must my card be, for [the expression] to equal the number I'm responsible for?" For example, if Hearts=1, and Alice sees 3 other Hearts at the table, and Alice is responsible for the case where (V0+ ... V[N-1])%N == 1, then the current total is 3, and she needs to get it up to 5 (because 5%4 is 1). So she should pick 2=Diamonds.
 
-The answer to this is: (playerNumber - Sum(observedValues)) % N   [See note below*]
+The answer to this is: (playerNumber - Sum(observedValues)) % N   [See note<sup>1</sup>]
+
 [Using the above example (1 - 3) % 4 = 2 -> Diamonds)]
 
 When you consider this case with N=2, you'll see it reduces to the simple english solution above.
@@ -54,7 +55,7 @@ It seems to me that the necessary criteria for such an expression are:
 If you think about that, you may realize that this holds true for the XOR expression at N = 2, or N = 4, but not at N = 3.
 (This is because the 3rd criteria isn't met when N isn't a power of 2. Imagine the current XOR is 1, and a player wishes to bump it to 2. The amount to XOR by is 3, which is out-of-range when N=3 [valid values are 0,1,2])
 
- * As you'll see in the code, depending on how your language handles negative modulus, the expression may be more complicated. For whatever reason, Scala (and some other languages) say -1 % 5, for example, equals -1. However, wolfram alpha give the 4 (which seems more intuitive to me) [http://www.wolframalpha.com/input/?i=-1+mod+5].
+Footnote 1: As you'll see in the code, depending on how your language handles negative modulus, the expression may be more complicated. For whatever reason, Scala (and some other languages) say -1 % 5, for example, equals -1. However, wolfram alpha give the 4 (which seems more intuitive to me) [http://www.wolframalpha.com/input/?i=-1+mod+5].
 
 
 I hope I've made a pretty complex riddle seem a little easier. Feel free to check out the code.
