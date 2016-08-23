@@ -27,11 +27,11 @@ With N players we simply must find an expression that each player can *uniquely*
 
 It turns out one easy expression is: (V0 + V1 + V2 ... V[N-1]) % N where V represents a numerical value (e.g. black = 0, red = 1 or clubs = 0, hearts = 1, spades = 2 ...) 
 
-Each of the N players can cover one of the N possible values of (V0 + .. V[N-1])
+Each of the N players can cover one of the N possible values of (V0 + .. V[N-1]) % N
 
 So if player 0 can assure that he guesses his card when (V0 + ... V[N-1])%N==0
 and if player 1 can assure that he guesses his card when (V0 + ... V[N-1])%N==1
-and so on, then we have achieved our goal.
+and so on, then we have achieved our goal, and we will be 100% sure that in each case one player will correctly guess his card.
 
 A player can do this, by asking "What value must my card be, for [the expression] to equal the number I'm responsible for?" For example, if Clubs =0, and Alice sees 3 other Clubs at the table, and Alice is responsible for the case where (V0+ ... V[N-1])%N == 0, she should guess clubs.
 
