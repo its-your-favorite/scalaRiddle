@@ -4,8 +4,15 @@
 object solver {
   def main(args: Array[String]): Unit = {
 
-    assert(testSolution(2, theSolution))    // test every permutation with N = 2
-    assert(testSolution(4, theSolution))    // test every permutation with N = 4
+    assert(testSolution(2, theSolution))    // test every permutation with N = 2 (e.g. red / black)
+    assert(testSolution(4, theSolution))    // test every permutation with N = 4 (e.g. clubs, hearts, spades, diamonds)
+    assert(testSolution(5, theSolution))    // test every permutation with N = 4 (e.g. clubs, hearts, spades, diamonds)
+
+    assert(testSolution(2, anotherSolution))    // Now demonstrate with XOR 2
+    assert(testSolution(3, anotherSolution))    // N = 4
+    //This would Fail:
+    //  assert(testSolution(5, anotherSolution))    // N = 5
+
     print( "Passed all cases" )
   }
 
@@ -60,5 +67,9 @@ object solver {
   def theSolution(playerNumber: Int, n: Int, cardsVisible: IndexedSeq[Int]): Int = {
     (playerNumber - cardsVisible.reduce(_ + _) % n + n ) % n /* Pretty simple solution, except negative modulo is always weird... */
     // if modulo worked with negatives we could simply write (playerNumber - cardsVisible.reduce(_+_)) % n
+  }
+
+  def anotherSolution(playerNumber: Int, n: Int, cardsVisible: IndexedSeq[Int]): Int = {
+    (playerNumber ^ cardsVisible.reduce(_ ^ _)) % n /* XOR is another way to combine the data */
   }
 }
